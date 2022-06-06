@@ -5,26 +5,23 @@ plugins {
     id 'com.google.cloud.tools.jib' version '3.2.1'
 
 }
-jib{
-    from {
-image="openjdk:17-oracle"
-    }
-    extraDirectories{
-        path{
-            from="build/libs"
-            includes=["*.jar"]
-            into="/app/app.jar"
-        }
-    }
-    container{
-        entrypoint =["java","-Dhttp.proxyHost=webcache.example","-jar","/java/app.jar"]
-    }
-//    to{
-//        to=
+//jib{
+//    from {
+//    image="openjdk:17-oracle"
 //    }
-}
+//    extraDirectories{
+//        path{
+//            from="build/libs"
+//            includes=["*.jar"]
+//            into="/app/app.jar"
+//        }
+//    }
+//    container{
+//        entrypoint =["java","-Dhttp.proxyHost=webcache.example","-jar","/java/app.jar"]
+//    }
+//}
 group 'org.example'
-version '1.0-SNAPSHOT'
+version '1.1-SNAPSHOT'
 
 repositories {
     mavenCentral()
