@@ -1,0 +1,42 @@
+plugins {
+    id 'org.springframework.boot' version '2.6.6'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+    id 'com.google.cloud.tools.jib' version '3.2.1'
+
+}
+jib{
+    from {
+image="openjdk:17-oracle"
+    }
+    extraDirectories{
+        path{
+            from="build/libs"
+            includes=["*.jar"]
+            into="/app/app.jar"
+        }
+    }
+    container{
+        entrypoint =["java","-Dhttp.proxyHost=webcache.example","-jar","/java/app.jar"]
+    }
+//    to{
+//        to=
+//    }
+}
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.2'
+}
+
+test {
+    useJUnitPlatform()
+}
